@@ -14,7 +14,7 @@ public class generer_map : MonoBehaviour
     public Map map;
     public static GameObject[] MesPrefabs;
     GameObject DemoCube;
-    readonly int grandeurDesBlocs = 5;
+    readonly int grandeurDesBlocs = 3;
     public Dropdown DdlPrefabs;
     [SerializeField]
     InputField BoiteDeTexte;
@@ -22,17 +22,17 @@ public class generer_map : MonoBehaviour
     Button BoutonSauvergarder;
     int DimensionY;
     int DimensionX;
+    Tuple<int, int> positionDepart = new Tuple<int, int>(-33, 21);
     List<List<GameObject>> listeCubes = new List<List<GameObject>>();
 
     void Start()
     {
         MesPrefabs = Resources.LoadAll<GameObject>("Prefabs");
-
         InitializerDropdown();
         DemoCube = Instantiate(Resources.Load<GameObject>("Prefabs/" + MesPrefabs[0].name));
         var collider = DemoCube.GetComponent<BoxCollider>();
         Destroy(collider);
-        DemoCube.transform.position = new Vector3(28, -19, 0);
+        DemoCube.transform.position = new Vector3(31, -9, 0);
         DimensionY = (int)GameObject.Find("Sld_Hauteur").GetComponent<Slider>().value;
         DimensionX = (int)GameObject.Find("Sld_Largeur").GetComponent<Slider>().value;
         map = new Map("De Base", DimensionX, DimensionY, MesPrefabs.Length);
@@ -154,7 +154,7 @@ public class generer_map : MonoBehaviour
     }
     void GenererNouvelleMap(int hauteur, int largeur)
     {
-        var positionDepart = new Tuple<int, int>(-25, 20);
+     
         for (int i = 0; i < hauteur; i++)
         {
             listeCubes.Add(new List<GameObject>());
@@ -177,7 +177,7 @@ public class generer_map : MonoBehaviour
         }
 
         listeCubes.Clear();
-        var positionDepart = new Tuple<int, int>(-25, 20);
+    
         for (int i = 0; i < map.DimensionY; i++)
         {
             listeCubes.Add(new List<GameObject>());
