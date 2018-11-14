@@ -12,7 +12,6 @@ public class open_old_map : MonoBehaviour
     
     void Start()
     {
-        button?.onClick.AddListener(ouvrirMap);
     }
 
     // Update is called once per frame
@@ -20,13 +19,6 @@ public class open_old_map : MonoBehaviour
     {
         
     }
-    void ouvrirMap()
-    {
-        string path = EditorUtility.OpenFilePanel("Ouvrir la map", "", "json");
-        if (path.Length != 0)
-        {
-            var fileContent = File.ReadAllBytes(path);
-        }
-    }
+
       
 }
