@@ -19,7 +19,7 @@ namespace TestMap
         public int DimensionX { get => donnéesMap[0].Count; }
 
         [JsonProperty]
-        public int NbTuilesDifférents { get; private set; }
+        public int NbTuilesDifférents { get; set; }
 
         //danger avec public get
         [JsonProperty]
@@ -54,8 +54,8 @@ namespace TestMap
                 donnéesMap.Add(ligne);
             }
 
-            //OnDimensionXModifiée += (s, e) => OnModifiée.Invoke(this, EventArgs.Empty);
-            //OnDimensionYModifiée += (s, e) => OnModifiée.Invoke(this, EventArgs.Empty);
+           // OnDimensionXModifiée += (s, e) => OnModifiée.Invoke(this, EventArgs.Empty);
+           // OnDimensionYModifiée += (s, e) => OnModifiée.Invoke(this, EventArgs.Empty);
         }
 
         public void ChangerDimensionY(int nouvelleTaille)
