@@ -13,16 +13,16 @@ public class generer_map : MonoBehaviour
     // Start is called before the first frame update
     public Map map;
     public static GameObject[] MesPrefabs;
-    GameObject DemoCube;
+    private GameObject DemoCube;
     readonly int grandeurDesBlocs = 3;
     public Dropdown DdlPrefabs;
     [SerializeField]
-    InputField BoiteDeTexte;
+    private InputField BoiteDeTexte;
     [SerializeField]
     Button BoutonSauvergarder;
     int DimensionY;
     int DimensionX;
-    Tuple<int, int> positionDepart = new Tuple<int, int>(-33, 21);
+    Tuple<int, int> positionDepart = new Tuple<int, int>(-34, 22);
     List<List<GameObject>> listeCubes = new List<List<GameObject>>();
 
     void Start()
@@ -32,6 +32,7 @@ public class generer_map : MonoBehaviour
         DemoCube = Instantiate(Resources.Load<GameObject>("Prefabs/" + MesPrefabs[0].name));
         var collider = DemoCube.GetComponent<BoxCollider>();
         Destroy(collider);
+
         DemoCube.transform.position = new Vector3(31, -9, 0);
         DimensionY = (int)GameObject.Find("Sld_Hauteur").GetComponent<Slider>().value;
         DimensionX = (int)GameObject.Find("Sld_Largeur").GetComponent<Slider>().value;
@@ -55,10 +56,13 @@ public class generer_map : MonoBehaviour
     }
     public void ModifierDemoCube()
     {
-        var cube = Instantiate(Resources.Load<GameObject>("Prefabs/" + MesPrefabs[DdlPrefabs.value].name));
-        cube.transform.position = DemoCube.transform.position;
-        Destroy(DemoCube);
-        DemoCube = cube;
+        if (DemoCube != null)
+        {
+            var cube = Instantiate(Resources.Load<GameObject>("Prefabs/" + MesPrefabs[DdlPrefabs.value].name));
+            cube.transform.position = DemoCube.transform.position;
+            Destroy(DemoCube);
+            DemoCube = cube;
+        }
     }
     public void Sauvegarder()
     {
@@ -78,7 +82,7 @@ public class generer_map : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
@@ -88,7 +92,7 @@ public class generer_map : MonoBehaviour
                 var cube = Instantiate(Resources.Load<GameObject>("Prefabs/" + MesPrefabs[DdlPrefabs.value].name));
                 for (int i = 0; i < listeCubes.Count; i++)
                 {
-                    for(int j = 0; j < listeCubes[i].Count; j++)
+                    for (int j = 0; j < listeCubes[i].Count; j++)
                     {
                         if (listeCubes[i][j].transform.position == hit.transform.position)
                         {
@@ -154,7 +158,7 @@ public class generer_map : MonoBehaviour
     }
     void GenererNouvelleMap(int hauteur, int largeur)
     {
-     
+
         for (int i = 0; i < hauteur; i++)
         {
             listeCubes.Add(new List<GameObject>());
@@ -170,14 +174,14 @@ public class generer_map : MonoBehaviour
     {
         foreach (var list in listeCubes)
         {
-            foreach(var cube in list)
+            foreach (var cube in list)
             {
                 Destroy(cube);
             }
         }
 
         listeCubes.Clear();
-    
+
         for (int i = 0; i < map.DimensionY; i++)
         {
             listeCubes.Add(new List<GameObject>());
@@ -193,10 +197,10 @@ public class generer_map : MonoBehaviour
 
 
 
-        
-        
-        
-       
+
+
+
+
 
 
 
